@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>Topics</h1>
+    <hr>
+    <div class="row">
+        <div class="two-thirds column">
+            <h2>Hello, {{ user.username }}.</h2>
+            {% for topic in object_list %}
+                <h3><a href="{% url 'blog:topic' topic.id %}">{{ topic.title }}</a></h3>
+            {% empty %}
+                <h3>No posts yet.</h3>
+            {% endfor %}
+        </div>
+        <div class="one-third column">
+            <h4>Navigation</h4>
+            <ul>
+                <li>
+                    <a href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                <li>
+                    <a href="{% url 'blog:create' %}">Create a New Topic</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

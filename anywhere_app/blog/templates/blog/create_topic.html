@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>Create a New Topic</h1>
+    <hr>
+    <div class="row">
+        <div class="two-thirds column">
+            <form method="post" action="{% url 'blog:create' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button-primary" type="submit">Create Post</button>
+            </form>
+            {% if form.errors %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="one-third column">
+            <h4>Navigation</h4>
+            <ul>
+                <li>
+                    <a href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                <li>
+                    <a href="{% url 'blog:topics' %}">Topics</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

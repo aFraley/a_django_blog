@@ -1,0 +1,14 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h1>Registration</h1>
+    <hr>
+    <h4>Already have an account? <a href="{% url 'accounts:login' %}">Click Here to Login</a></h4>
+
+    <form method="post" action="{% url 'accounts:registration' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button-primary" type="submit">Register</button>
+        <input type="hidden" name="next" value="{% url 'blog:topics' %}">
+    </form>
+{% endblock %}

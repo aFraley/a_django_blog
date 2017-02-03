@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>{{ topic.title }}</h1>
+    <hr>
+    <div class="row">
+        <div class="two-thirds column">
+            <h3>{{ topic.body }}</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button-primary" type="submit">Comment</button>
+            </form>
+            {% for comment in comments %}
+                <strong>{{ comment.author }}</strong>
+                <small>{{ comment.updated_at }}</small>
+                <p>{{ comment.body }}</p>
+            {% empty %}
+                <p>There are no comments yet.</p>
+            {% endfor %}
+        </div>
+        <div class="one-third column">
+            <h4>Navigation</h4>
+            <ul>
+                <li>
+                    <a href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                <li>
+                    <a href="{% url 'blog:create' %}">Create a New Topic</a>
+                </li>
+                <li>
+                    <a href="{% url 'blog:topics' %}">Topics</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
