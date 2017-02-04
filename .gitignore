@@ -112,3 +112,6 @@ ENV/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+# Application Specific
+anywhere_app/keys.JSON
+anywhere_app/db.sqlite3
