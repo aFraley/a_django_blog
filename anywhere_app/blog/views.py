@@ -6,9 +6,6 @@ from django.views.generic import ListView
 from .forms import TopicForm, CommentForm
 from .models import Topic, Comment
 
-# class PostList(ListView):
-#     pass
-
 
 class TopicsView(ListView):
     model = Topic
@@ -40,7 +37,7 @@ class TopicCreate(View):
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
-            return redirect('blog:posts')
+            return redirect('blog:topics')
         else:
             form = self.form_class()
         return render(request, self.template_name, {'form': form})

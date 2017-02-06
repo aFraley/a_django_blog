@@ -115,3 +115,4 @@ ENV/
 # Application Specific
 anywhere_app/keys.JSON
 anywhere_app/db.sqlite3
+anywhere_app/static/
