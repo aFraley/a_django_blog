@@ -1,0 +1,7 @@
+{% for comment in comments %}
+    <strong>{{ comment.author }}</strong>
+    <small>{{ comment.updated_at }}</small>
+    <p>{{ comment.body }}</p>
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}

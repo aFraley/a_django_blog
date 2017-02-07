@@ -1,4 +1,6 @@
+from django.core import serializers
 from django.shortcuts import render, redirect, reverse
+from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView
@@ -51,8 +53,8 @@ class TopicDetail(View):
 
     def get(self, request, topic_id):
         form = self.form_class
-        topic = Topic.objects.get(id=topic_id)
-        comments = topic.comment_set.order_by('-updated_at')
+        topic = self.topic_model.objects.get(id=topic_id)
+        comments = topic.comments.order_by('-updated_at')
         context = {
             'topic': topic,
             'comments': comments,
@@ -77,3 +79,15 @@ class TopicDetail(View):
         comment = self.comment_model.objects.get(id=topic_id)
         comment.delete()
         return redirect('blog:topic', topic_id)
+
+
+class Comments(View):
+    template_name = 'blog/comments.html'
+    topic_model = Topic
+    comment_model = Comment
+
+    def get(self, request, topic_id):
+        topic = self.topic_model.objects.get(id=topic_id)
+        comments = topic.comments.order_by('-updated_at')
+        context = {'comments': comments}
+        return render(request, self.template_name, context)
